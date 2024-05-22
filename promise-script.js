@@ -7,21 +7,23 @@ button.addEventListener("click", getData);
 function getData(event) {
   callbackMsg.innerHTML = "Loading... Please wait";
 
-  fetchData().then((data) => {
-    callbackMsg.innerHTML = "Data fetched within 5 seconds."
-    // Getting array of posts
-    const posts = data.posts;
-    // For every post  we are creating a div element adding class to its attribute
-    // And setting its inner html to the post title then appending the div to container
-    posts.forEach((post) => {
-      let postDiv = document.createElement("div");
-      postDiv.setAttribute("class", "post-titles");
-      postDiv.innerHTML = post.title;
-      dataDiv.appendChild(postDiv);
+  fetchData()
+    .then((data) => {
+      callbackMsg.innerHTML = "Data fetched within 5 seconds.";
+      // Getting array of posts
+      const posts = data.posts;
+      // For every post  we are creating a div element adding class to its attribute
+      // And setting its inner html to the post title then appending the div to container
+      posts.forEach((post) => {
+        let postDiv = document.createElement("div");
+        postDiv.setAttribute("class", "post-titles");
+        postDiv.innerHTML = post.title;
+        dataDiv.appendChild(postDiv);
+      });
+    })
+    .catch((error) => {
+      callbackMsg.innerHTML = `Error :${error}`;
     });
-  }).catch(error => {
-    callbackMsg.innerHTML = `Error :${error}`;
-  });
 }
 
 // Set a timeout of 5 seconds for the fetch operation.
@@ -37,11 +39,9 @@ function getData(event) {
 // the fetch operation completes successfully before the timeout expires.
 
 function fetchData() {
-
   return new Promise((resolve, reject) => {
-
     let timeout = setTimeout(() => {
-        // If this line execute that means the featch API could not featch data within 5 seconds.
+      // If this line execute that means the featch API could not featch data within 5 seconds.
       reject("Could not fetch data from the API within 5 seconds.");
     }, 5000);
 

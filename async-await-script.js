@@ -5,6 +5,7 @@ const dataDiv = document.getElementsByClassName("data")[0];
 
 button.addEventListener("click", getData);
 async function getData(event) {
+    callbackMsg.innerHTML = "Loading... Please wait.";
     try {
         data = await fetchData();
         callbackMsg.innerHTML = "Data fetched within 5 seconds.";
